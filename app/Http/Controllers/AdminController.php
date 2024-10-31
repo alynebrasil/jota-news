@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\News;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -10,12 +11,18 @@ class AdminController extends Controller
 {
     public function index()
     {
-        return view('admin.dashboard');
+        $allNews = News::with('user')->orderBy('created_at', 'desc')->get();
+
+        $adminNews = News::where('fk_user', auth()->id())->orderBy('created_at', 'desc')->get();
+
+        $users = User::paginate(10);
+
+        return view('admin.dashboard', compact('allNews', 'adminNews', 'users'));
     }
 
     public function indexUsers()
     {
-        $users = User::all();
+        $users = User::paginate(10);
         return view('admin.users.index', compact('users'));
     }
 
