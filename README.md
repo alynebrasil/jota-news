@@ -17,5 +17,6 @@ Para executar este projeto, você precisará ter as seguintes ferramentas instal
 
    ```bash
    git clone https://github.com/alynebrasil/jota-news.git
+   cd jota-news
 
    
