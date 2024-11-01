@@ -32,21 +32,25 @@ class NewsController extends Controller
         $request->validate([
             'title' => 'required|string|max:255',
             'subtitle' => 'required|string|max:255',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'image' => 'required|image',
             'content' => 'required|string',
         ]);
 
-        $path = $request->file('image')->store('images', 'public');
+        $news = new News();
+        $news->title = $request->input('title');
+        $news->subtitle = $request->input('subtitle');
+        $news->content = $request->input('content');
 
-        News::create([
-            'title' => $request->title,
-            'subtitle' => $request->subtitle,
-            'image' => $path,
-            'content' => $request->content,
-        ]);
+        if ($request->hasFile('image')) {
+            $path = $request->file('image')->store('news_images', 'public');
+            $news->image = $path;
+        }
+
+        $news->save();
 
         return redirect()->route('news.index')->with('success', 'Notícia criada com sucesso!');
     }
+
 
     public function edit(News $news)
     {
@@ -57,36 +61,32 @@ class NewsController extends Controller
     public function update(Request $request, $id)
     {
         $news = News::findOrFail($id);
-    
+
         $request->validate([
             'title' => 'required|string|max:255',
             'subtitle' => 'required|string|max:255',
-            'image' => 'nullable|image|max:2048', // Apenas imagens, tamanho máximo de 2MB
+            'image' => 'nullable|image|max:2048',
             'content' => 'required|string',
         ]);
-    
-        // Atualizando os campos da notícia
+
         $news->title = $request->input('title');
         $news->subtitle = $request->input('subtitle');
-    
-        // Verifica se uma nova imagem foi carregada
+
         if ($request->hasFile('image')) {
-            // Remove a imagem antiga, se existir
             if ($news->image) {
                 Storage::disk('public')->delete($news->image);
             }
-    
-            // Salva a nova imagem e armazena o caminho
+
             $path = $request->file('image')->store('images', 'public');
-            $news->image = $path; // Salva o caminho no banco de dados
+            $news->image = $path;
         }
-    
+
         $news->content = $request->input('content');
         $news->save();
-    
+
         return redirect()->route('news.index')->with('success', 'Notícia atualizada com sucesso!');
     }
-    
+
 
     public function destroy(News $news)
     {

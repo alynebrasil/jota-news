@@ -35,10 +35,10 @@
 
                     <ul class="navbar-nav ms-auto">
                     @auth
-                        @if (Auth::user()->role === 'admin')
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('admin.dashboard') }}">{{ __('Dashboard') }}</a>
-                        </li>
+                         @if (Auth::user()->role === 'admin')
+                             <li class="nav-item">
+                                 <a class="nav-link" href="{{ route('admin.dashboard') }}">{{ __('Dashboard') }}</a>
+                            </li>
                         @endif
                     @endauth
                         @guest
@@ -63,6 +63,11 @@
                                     @if (Auth::user()->role === 'admin')
                                         <a class="dropdown-item" href="{{ route('admin.dashboard') }}">
                                             Dashboard
+                                        </a>
+                                    @endif
+                                    @if (Auth::user()->role === 'editor')
+                                        <a class="dropdown-item" href="{{ route('editor.dashboard') }}">
+                                            Minhas Notícias
                                         </a>
                                     @endif
                                     <a class="dropdown-item" href="{{ route('profile.edit') }}">
