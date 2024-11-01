@@ -2,11 +2,12 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>@yield('title', 'JOTA - Jornalismo e Tecnologia')</title>
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Jota Info') }}</title>
+    <title>{{ config('app.name', 'JOTA INFO') }}</title>
 
     <!-- Favicon -->
     <link rel="icon" href="{{ asset('images/favicon.jpeg') }}" type="image/jpeg">

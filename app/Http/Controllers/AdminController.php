@@ -11,10 +11,8 @@ class AdminController extends Controller
 {
     public function index()
     {
-        $allNews = News::with('user')->orderBy('created_at', 'desc')->get();
-
-        $adminNews = News::where('fk_user', auth()->id())->orderBy('created_at', 'desc')->get();
-
+        $allNews = News::paginate(20);
+        $adminNews = News::where('fk_user', auth()->id())->get();
         $users = User::paginate(10);
 
         return view('admin.dashboard', compact('allNews', 'adminNews', 'users'));

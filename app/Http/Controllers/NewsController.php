@@ -11,9 +11,8 @@ class NewsController extends Controller
 {
     public function index(Request $request)
     {
-        $news = News::whereDate('created_at', $request->input('date', now()->toDateString()))
-                    ->orderBy('created_at', 'desc')
-                    ->get();
+
+        $news = News::orderBy('created_at', 'desc')->paginate(10);
 
         $newsVersions = News::orderBy('created_at', 'desc')->take(5)->get();
 
@@ -45,17 +44,16 @@ class NewsController extends Controller
         $news->title = $request->input('title');
         $news->subtitle = $request->input('subtitle');
         $news->content = $request->input('content');
-
+        $news->fk_user = auth()->id();
         if ($request->hasFile('image')) {
-            $path = $request->file('image')->store('news_images', 'public');
-            $news->image = $path;
+            $imagePath = $request->file('image')->store('images', 'public');
+            $news->image = $imagePath;
         }
 
         $news->save();
 
         return redirect()->route('news.index')->with('success', 'Notícia criada com sucesso!');
     }
-
 
     public function edit(News $news)
     {

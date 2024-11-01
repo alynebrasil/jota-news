@@ -5,7 +5,7 @@
     <h2>Dashboard</h2>
 
     <!-- Seção de Notícias -->
-    <h3>Todas as Notícias</h3>
+    <h3 class="mb-4 section-spacing">Todas as Notícias</h3>
     <a href="{{ route('news.create') }}" class="btn btn-success">Criar Nova Notícia</a>
     <table class="table">
         <thead>
@@ -35,8 +35,13 @@
         </tbody>
     </table>
 
+    <!-- Exibe o botão para ver todas as notícias se houver mais de 20 -->
+    @if ($allNews->total() > 20)
+        <a href="{{ route('news.index') }}" class="btn btn-primary">Ver Todas as Notícias</a>
+    @endif
+
     <!-- Seção de Notícias do Admin -->
-    <h3>Minhas Notícias</h3>
+    <h3 class="mb-4 section-spacing">Minhas Notícias</h3>
     <table class="table">
         <thead>
             <tr>
@@ -64,11 +69,8 @@
     </table>
 
     <!-- Seção de Usuários -->
-    <h3>Usuários</h3>
+    <h3 class="mb-4 section-spacing">Usuários</h3>
     <a href="{{ route('admin.users.create') }}" class="btn btn-primary">Criar Novo Usuário</a>
-    @if ($users->total() > 10)
-        <a href="{{ route('admin.users.index') }}" class="btn btn-primary mb-3">Ver Todos os Usuários</a>
-    @endif
     <table class="table">
         <thead>
             <tr>
@@ -96,7 +98,8 @@
             @endforeach
         </tbody>
     </table>
-
-    {{ $users->links() }}
+    @if ($users->total() > 20)
+        <a href="{{ route('admin.users.index') }}" class="btn btn-primary">Ver Todas os Usuários</a>
+    @endif
 </div>
 @endsection

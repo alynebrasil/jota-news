@@ -1,5 +1,6 @@
 @extends('layouts.app')
 
+@section('title', 'Dashboard do Editor')
 @section('content')
 <div class="container">
     <h1>Minhas Notícias</h1>

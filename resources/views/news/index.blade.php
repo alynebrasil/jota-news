@@ -35,6 +35,10 @@
                     </div>
                 @endforeach
             </div>
+
+            <div class="d-flex justify-content-center mt-4">
+                {{ $news->links('vendor.pagination.simple-bootstrap-4') }}
+            </div>
         </div>
 
         <!-- Barra lateral -->
@@ -50,7 +54,7 @@
 
             <!-- Lista de versões com thumbs -->
             <div class="news-versions">
-                <h5>Outras Versões</h5>
+                <h5>Outras Notícias</h5>
                 @foreach ($newsVersions as $version)
                     <div class="card mb-3">
                         @if($version->thumbnail)
