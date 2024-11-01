@@ -9,10 +9,15 @@ use Storage;
 
 class NewsController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $news = News::latest()->get();
-        return view('news.index', compact('news'));
+        $news = News::whereDate('created_at', $request->input('date', now()->toDateString()))
+                    ->orderBy('created_at', 'desc')
+                    ->get();
+
+        $newsVersions = News::orderBy('created_at', 'desc')->take(5)->get();
+
+        return view('news.index', compact('news', 'newsVersions'));
     }
 
     public function show($id)

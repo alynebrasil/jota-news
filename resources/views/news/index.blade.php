@@ -9,15 +9,16 @@
     @endcan
 
     <div class="row">
-        @foreach ($news as $newsItem)
-            <div class="col-md-4 mb-4">
-                <div class="card">
-                    @if($newsItem->image) <!-- Corrigido de $item->image para $newsItem->image -->
-                        <img src="{{ asset('storage/' . $newsItem->image) }}" alt="{{ $newsItem->title }}" class="img-fluid">
-                    @endif
-                    <div class="card-body">
-                        <h5 class="card-title">{{ $newsItem->title }}</h5>
-                        <p class="card-text">{{ $newsItem->subtitle }}</p>
+        <!-- Feed principal de notícias -->
+        <div class="col-md-8">
+            <div class="news-feed">
+                @foreach ($news as $newsItem)
+                    <div class="news-item mb-4 p-3 border-bottom">
+                        @if($newsItem->image)
+                            <img src="{{ asset('storage/' . $newsItem->image) }}" alt="{{ $newsItem->title }}" class="img-fluid mb-2" style="max-height: 200px; width: 100%; object-fit: cover;">
+                        @endif
+                        <h3>{{ $newsItem->title }}</h3>
+                        <p class="text-muted">{{ $newsItem->subtitle }}</p>
                         <a href="{{ route('news.show', $newsItem->id) }}" class="btn btn-primary">Leia mais</a>
 
                         @can('update', $newsItem)
@@ -32,9 +33,37 @@
                             </form>
                         @endcan
                     </div>
-                </div>
+                @endforeach
             </div>
-        @endforeach
+        </div>
+
+        <!-- Barra lateral -->
+        <div class="col-md-4">
+            <!-- Seletor para notícias do dia -->
+            <div class="mb-4">
+                <h5>Notícias do Dia</h5>
+                <form method="GET" action="{{ route('news.index') }}">
+                    <input type="date" name="date" class="form-control mb-2" value="{{ request('date') }}">
+                    <button type="submit" class="btn btn-outline-primary w-100">Filtrar</button>
+                </form>
+            </div>
+
+            <!-- Lista de versões com thumbs -->
+            <div class="news-versions">
+                <h5>Outras Versões</h5>
+                @foreach ($newsVersions as $version)
+                    <div class="card mb-3">
+                        @if($version->thumbnail)
+                            <img src="{{ asset('storage/' . $version->thumbnail) }}" alt="{{ $version->title }}" class="card-img-top" style="max-height: 100px; object-fit: cover;">
+                        @endif
+                        <div class="card-body p-2">
+                            <h6 class="card-title">{{ $version->title }}</h6>
+                            <a href="{{ route('news.show', $version->id) }}" class="btn btn-sm btn-primary">Ver</a>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        </div>
     </div>
 </div>
 @endsection

@@ -1,8 +1,41 @@
 // Fonts
-@import url('https://fonts.bunny.net/css?family=Nunito');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
 
 // Variables
 @import 'variables';
 
 // Bootstrap
 @import 'bootstrap/scss/bootstrap';
+
+body{
+    font-family: "Roboto", sans-serif;
+}
+
+.btn{
+    margin:0 5px 0 5px;
+}
+.btn-primary,
+.btn-secondary,
+.btn-success {
+    background-color: #ff7f50;
+    color: #fff;
+    border: none;
+}
+
+.btn-primary:hover,
+.btn-secondary:hover,
+.btn-success:hover {
+    background-color: #ff6a35;
+}
+
+.btn-outline-primary{
+    border-color: #ff7f50;
+    color: #ff7f50;
+}
+
+.btn-outline-primary:hover{
+    background-color: #ff6a35;
+    color: white;
+    border-color:#ff7f50;
+}

@@ -1,6 +1,5 @@
 <!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-<head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -70,8 +69,8 @@
                                             Minhas Notícias
                                         </a>
                                     @endif
-                                    <a class="dropdown-item" href="{{ route('profile.edit') }}">
-                                        Editar Perfil
+                                    <a class="dropdown-item" href="{{ route('profile.show') }}">
+                                        Meu Perfil
                                     </a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();

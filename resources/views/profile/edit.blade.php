@@ -6,16 +6,16 @@
     <form action="{{ route('profile.update') }}" method="POST">
         @csrf
         @method('PATCH')
-        <div class="mt-4">
-            <label for="name" class="block">Nome</label>
-            <input type="text" id="name" name="name" value="{{ old('name', $user->name) }}" class="border rounded p-2 w-full" required>
+        <div class="mt-6">
+            <label for="name" class="block text-gray-700">Nome:</label>
+            <input type="text" id="name" name="name" value="{{ old('name', $user->name) }}" class="form-control mt-2" style="background-color: white; width: 50%;" required>
         </div>
         <div class="mt-4">
-            <label for="email" class="block">Email</label>
-            <input type="email" id="email" name="email" value="{{ old('email', $user->email) }}" class="border rounded p-2 w-full" required>
+            <label for="email" class="block text-gray-700">Email:</label>
+            <input type="email" id="email" name="email" value="{{ old('email', $user->email) }}" class="form-control mt-2" style="background-color: white; width: 50%;" required>
         </div>
         <div class="mt-6">
-            <button type="submit" class="bg-blue-500 text-white rounded p-2">Salvar</button>
+            <button type="submit" class="btn btn-primary mt-4">Salvar</button>
         </div>
     </form>
 </div>
