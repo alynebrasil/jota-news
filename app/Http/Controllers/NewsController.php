@@ -54,31 +54,39 @@ class NewsController extends Controller
         return view('news.edit', compact('news'));
     }
 
-    public function update(Request $request, News $news)
+    public function update(Request $request, $id)
     {
+        $news = News::findOrFail($id);
+    
         $request->validate([
             'title' => 'required|string|max:255',
             'subtitle' => 'required|string|max:255',
-            'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048|nullable',
+            'image' => 'nullable|image|max:2048', // Apenas imagens, tamanho máximo de 2MB
             'content' => 'required|string',
         ]);
-
+    
+        // Atualizando os campos da notícia
+        $news->title = $request->input('title');
+        $news->subtitle = $request->input('subtitle');
+    
+        // Verifica se uma nova imagem foi carregada
         if ($request->hasFile('image')) {
-            Storage::disk('public')->delete($news->image);
-
+            // Remove a imagem antiga, se existir
+            if ($news->image) {
+                Storage::disk('public')->delete($news->image);
+            }
+    
+            // Salva a nova imagem e armazena o caminho
             $path = $request->file('image')->store('images', 'public');
-            $news->image = $path;
+            $news->image = $path; // Salva o caminho no banco de dados
         }
-
-        $news->title = $request->title;
-        $news->subtitle = $request->subtitle;
-        $news->content = $request->content;
-
+    
+        $news->content = $request->input('content');
         $news->save();
-
+    
         return redirect()->route('news.index')->with('success', 'Notícia atualizada com sucesso!');
     }
-
+    
 
     public function destroy(News $news)
     {

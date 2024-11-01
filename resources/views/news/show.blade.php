@@ -4,7 +4,10 @@
 <div class="container">
     <h1>{{ $news->title }}</h1>
     <h4>{{ $news->subtitle }}</h4>
-    <img src="{{ asset('storage/' . $news->image) }}" alt="{{ $news->title }}" class="img-fluid">
+    @if($news->image)
+    <img src="{{ asset('storage/' . $news->image) }}" alt="{{ $news->title }}" class="img-fluid mb-3">
+    @endif
+
     <p>{{ $news->content }}</p>
 
     @can('update', $news)

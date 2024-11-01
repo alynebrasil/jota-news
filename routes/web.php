@@ -8,9 +8,6 @@ use Inertia\Inertia;
 
 Route::get('/', [NewsController::class, 'index'])->name('news.index');
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/admin/dashboard', [AdminController::class, 'index'])->name('admin.dashboard')->middleware('auth');
@@ -23,9 +20,9 @@ Route::middleware(['auth', 'admin'])->group(function () {
 });
 
 Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');
+    Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
 Auth::routes();
@@ -40,4 +37,3 @@ Route::middleware(['auth', 'can:create,App\Models\News'])->group(function () {
 
 Route::get('/news/{news}', [NewsController::class, 'show'])->name('news.show');
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

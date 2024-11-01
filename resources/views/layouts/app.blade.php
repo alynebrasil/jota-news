@@ -34,11 +34,13 @@
                     <ul class="navbar-nav me-auto"></ul>
 
                     <ul class="navbar-nav ms-auto">
+                    @auth
                         @if (Auth::user()->role === 'admin')
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('admin.dashboard') }}">{{ __('Dashboard') }}</a>
-                                </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('admin.dashboard') }}">{{ __('Dashboard') }}</a>
+                        </li>
                         @endif
+                    @endauth
                         @guest
                             @if (Route::has('login'))
                                 <li class="nav-item">
@@ -63,6 +65,9 @@
                                             Dashboard
                                         </a>
                                     @endif
+                                    <a class="dropdown-item" href="{{ route('profile.edit') }}">
+                                        Editar Perfil
+                                    </a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">

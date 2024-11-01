@@ -12,7 +12,9 @@
         @foreach ($news as $newsItem)
             <div class="col-md-4 mb-4">
                 <div class="card">
-                    <img src="{{ $newsItem->image_url }}" class="card-img-top" alt="{{ $newsItem->title }}">
+                    @if($newsItem->image) <!-- Corrigido de $item->image para $newsItem->image -->
+                        <img src="{{ asset('storage/' . $newsItem->image) }}" alt="{{ $newsItem->title }}" class="img-fluid">
+                    @endif
                     <div class="card-body">
                         <h5 class="card-title">{{ $newsItem->title }}</h5>
                         <p class="card-text">{{ $newsItem->subtitle }}</p>

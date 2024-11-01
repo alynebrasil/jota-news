@@ -24,6 +24,13 @@ class ProfileController extends Controller
         ]);
     }
 
+    public function show(Request $request)
+    {
+        return view('profile.show', [
+            'user' => $request->user(),
+        ]);
+    }
+
     /**
      * Update the user's profile information.
      */
@@ -37,7 +44,7 @@ class ProfileController extends Controller
 
         $request->user()->save();
 
-        return Redirect::route('profile.edit');
+        return redirect()->route('profile.show')->with('status', 'Perfil atualizado com sucesso!');
     }
 
     /**
