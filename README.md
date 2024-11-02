@@ -50,7 +50,16 @@ Para criar as tabelas do banco de dados, execute as migrações e, opcionalmente
 ```bash
 php artisan migrate --seed
    ```
+#### Perfil de admin
+Para criar o perfil de admin, será necessário alterar o banco de dados e adicioná-lo manualmente na tabela users
+Para a senha, insira no terminal:
 
+```bash
+php artisan tinker
+> Hash::make('12345678')
+> exit
+```
+E copiar o código gerado para o campo na coluna senhas
 
 ### 6. Instale as Dependências de Front-end
 
