@@ -56,7 +56,7 @@ Para a senha, insira no terminal:
 
 ```bash
 php artisan tinker
-> Hash::make('12345678')
+> Hash::make('12345678') (ou qualquer combinação de no mínimo 8 caracteres)
 > exit
 ```
 E copiar o código gerado para o campo na coluna senhas
