@@ -97,5 +97,14 @@ Inicie o servidor de desenvolvimento Laravel:
 php artisan serve
 ```
 
+### Observações:
+- É possível que apareça o erro `Target class [admin] does not exist.` e a única solução que encontrei foi adicionar à `/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php` o código abaixo:
+```bash
+    protected $routeMiddleware = [
+        'admin' => \App\Http\Middleware\AdminMiddleware::class,
+        'editor' => \App\Http\Middleware\EditorMiddleware::class
+    ];
+```
+
 ## Escolha de Ferramentas
 Optei por utilizar as ferramentas com as quais me sinto mais confortável, como Laravel e Inertia.js com Vue.js, pois isso me permite desenvolver de forma ágil e integrar eficientemente o backend com o frontend. Estou sempre aberta a aprender novas tecnologias e tenho facilidade em me adaptar a diferentes ferramentas, garantindo que a aplicação tenha uma base sólida e escalável.
