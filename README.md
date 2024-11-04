@@ -27,7 +27,7 @@ Para executar este projeto, você precisará ter as seguintes ferramentas instal
    composer install
    ```
 
-## 3. Configure o Banco de Dados
+### 3. Configure o Banco de Dados
 
 Crie um banco de dados no MySQL e nomeie-o como `laravel` (ou outro nome que preferir). Copie o arquivo `.env.example` para um novo arquivo `.env` e configure as credenciais do banco de dados:
 
@@ -61,7 +61,13 @@ php artisan tinker
 ```
 E copiar o código gerado para o campo na coluna senhas
 
-### 6. Instale as Dependências de Front-end
+### 6. Crie o link simbólico para o armazenamento público
+
+```bash
+php artisan storage:link
+   ```
+
+### 7. Instale as Dependências de Front-end
 
 Use o npm ou Yarn para instalar as dependências de front-end:
 
@@ -75,7 +81,7 @@ Ou, se preferir usar Yarn:
 yarn install
    ```
 
-### 7.Compile os Recursos de Front-end
+### 8.Compile os Recursos de Front-end
 
 Compile os recursos de front-end:
 
